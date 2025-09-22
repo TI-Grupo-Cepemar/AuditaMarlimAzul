@@ -1,0 +1,4 @@
+{
+  "database_url": "postgres://postgres:123456@10.1.1.117:5432/AuditManager_Homologacao",
+  "web_root": "views"
+}

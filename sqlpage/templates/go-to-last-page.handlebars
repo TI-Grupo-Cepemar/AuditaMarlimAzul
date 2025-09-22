@@ -1,0 +1,6 @@
+<a id="redirecionador" href="#" style="display: none"></a>
+<script nonce="{{@csp_nonce}}">
+    const link = document.getElementById("redirecionador");
+    link.setAttribute("href", document.referrer);
+    link.click();
+</script>
