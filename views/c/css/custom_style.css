@@ -1,3 +1,16 @@
 :root, [data-bs-theme=light] {
     --tblr-primary: #4299e1 !important;
 }
+
+.form-control-rounded, .form-control {
+    border-radius: var(--tblr-border-radius) !important;
+}
+
+.modal-backdrop {
+    opacity:0.5 !important;
+}
+
+.form-fieldset {
+    background: #11182700; /* CÓDIGO DE COR INVISÍVIL, COM FINAL 00 */
+    border: 0;
+}

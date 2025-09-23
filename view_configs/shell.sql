@@ -26,11 +26,14 @@ SET json_informacoes_usuario = (
 SET json_entidades = (
     '{
         "title": "Entidades",
-        "icon": "list-details"
+        "icon": "list-details",
+        "submenu": [
+            {"title": "Gerentes", "icon": "users", "link": "\\entidades\\gerentes\\"}
+        ]
     }'
 );
 
-SELECT -- COMPONENTE RESPONSÁVEL PELO ESTILO GENÉRICO DA ROTA (A ROTA LOGIN EM ESPECIAL POSSUI UM SHELL PRÓPRIO, TODAS AS OUTRAS ROTAS UTILIZAM O SHELL EM VIEW_CONFIGS)
+SELECT -- COMPONENTE RESPONSÁVEL PELO ESTILO GENÉRICO DA ROTA (A ROTA \LOGIN EM ESPECIAL POSSUI UM SHELL PRÓPRIO, TODAS AS OUTRAS ROTAS UTILIZAM O SHELL EM VIEW_CONFIGS)
 'shell' AS component,
 'AuditaMarlimAzul' AS title,
 '' AS navbar_title,
