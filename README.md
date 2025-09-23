@@ -14,7 +14,7 @@ git clone "https://github.com/TI-Grupo-Cepemar/AuditaMarlimAzul.git"
 ```
 
 2. Instale o banco de dados [PostgreSQL](https://www.postgresql.org/), e por padrão o instale na porta 5432, que já é configurada por padrão ao instalar o PostgreSQL, a menos que seja configurada outra porta. No caso da porta configurada no banco de dados for diferente da 5432, no próximo passo o servidor não irá subir, nesse caso será necessário alterar a porta da aplicação no arquivo situado no seguinte caminho _sqlpage > sqlpage.json_. Adicionando o seguinte par chave-valor (altere a porta 5432 para a porta que tenha configurado o banco de dados):
-```json
+```
 port: 5432
 ```
 

@@ -21,7 +21,7 @@ SET json_mudar_tema = (
     '{
         "title": "Inverter tema",
         "icon": "'||CASE WHEN $tema = 'light' THEN 'moon' ELSE 'sun' END||'",
-        "link": "inverter_tema"
+        "link": "\\c\\inverter_tema"
     }'
 );
 
@@ -31,8 +31,11 @@ SELECT
 '/' AS link
 WHERE $id_usuario_recuperado_pela_sessao IS NOT NULL;
 
-SELECT
+-- RENDERIZA OS COMPONENTES VISUAIS DA ROTA
+SELECT -- COMPONENTE RESPONSÁVEL PELO ESTILO GENÉRICO DA ROTA (A ROTA LOGIN EM ESPECIAL POSSUI UM SHELL PRÓPRIO, TODAS AS OUTRAS ROTAS UTILIZAM O SHELL EM VIEW_CONFIGS)
 'shell' AS component,
+'AuditaMarlimAzul' AS title,
+'' AS navbar_title,
 $tema AS theme,
 '' as footer,
 'fluid' AS layout,
@@ -42,9 +45,16 @@ $tema AS theme,
 JSON($json_mudar_tema) AS menu_item;
 
 SELECT
+'title' AS component,
+'AuditaMarlimAzul' AS contents,
+1 AS level,
+TRUE AS center;
+
+SELECT
 'form' AS component,
 'mx-auto' AS class,
-'Salvar' AS validate;
+'\c\login\autenticador' AS action,
+'' AS validate;
 
 SELECT
 'text' AS type,
@@ -59,3 +69,8 @@ TRUE AS required,
 'Insira a senha aqui' AS placeholder,
 'Senha' AS label,
 'senha' AS name;
+
+SELECT
+'submit' As type,
+'Acessar' AS value,
+'mt-3 bg-primary text-white fw-bold' AS class;

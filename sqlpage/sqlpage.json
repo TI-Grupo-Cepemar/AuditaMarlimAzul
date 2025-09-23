@@ -1,4 +1,8 @@
 {
   "database_url": "postgres://postgres:123456@10.1.1.117:5432/AuditManager_Homologacao",
-  "web_root": "views"
+  "web_root": "views",
+  "__oidc_issuer_url__": "https://login.microsoftonline.com/c708a84b-74bf-4868-8196-f88de6818684/v2.0",
+  "__oidc_client_id__": "4dfa8432-96c7-47d4-8254-b4e8e777039b",
+  "__oidc_client_secret__": "OnW8Q~Vyi~kcz5GZUl40AloprvKRiZyc--5uace0",
+  "__host__": "http://localhost:8080"
 }
