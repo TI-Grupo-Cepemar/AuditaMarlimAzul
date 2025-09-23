@@ -18,4 +18,4 @@ git clone "https://github.com/TI-Grupo-Cepemar/AuditaMarlimAzul.git"
 port: 5432
 ```
 
-3. Por fim, basta rodar o executável [_**sqlpage.exe**_](https://sql-page.com/), garantindo que a porta _8080_ não esteja em utilização.
+3. Por fim, basta rodar o executável [sqlpage.exe](https://sql-page.com/), garantindo que a porta _8080_ não esteja em utilização.

@@ -7,11 +7,26 @@
 SET tema = (
     sqlpage.cookie('TEMA')
 );
-SET json_mudar_tema = (
+SET nome_usuario = (
+    SELECT u.nome
+    FROM sessoes s
+    INNER JOIN usuarios u ON (s.id_usuario = u.id_usuario)
+    WHERE s.codigo_sessao = sqlpage.cookie('CODIGO_SESSAO')
+    LIMIT 1
+);
+SET json_informacoes_usuario = (
     '{
-        "title": "Inverter tema",
-        "icon": "'||CASE WHEN $tema = 'light' THEN 'moon' ELSE 'sun' END||'",
-        "link": "\\c\\inverter_tema"
+        "title": "'||$nome_usuario||'",
+        "icon": "user",
+        "submenu": [
+            {"title":"Inverter tema", "icon": "'||CASE WHEN $tema = 'light' THEN 'moon' ELSE 'sun' END||'", "link": "\\c\\inverter_tema"}
+        ]
+    }'
+);
+SET json_entidades = (
+    '{
+        "title": "Entidades",
+        "icon": "list-details"
     }'
 );
 
@@ -25,4 +40,5 @@ $tema AS theme,
 '\c\css\custom_style.css' AS css,
 '\c\imagens\logo_marlim.png' AS image,
 '\c\imagens\logo_marlim_favicon.png' AS favicon,
-JSON($json_mudar_tema) AS menu_item;
+JSON($json_entidades) AS menu_item,
+JSON($json_informacoes_usuario) AS menu_item;
