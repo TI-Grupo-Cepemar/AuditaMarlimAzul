@@ -8,7 +8,7 @@
             a rota.
 */
 
--- VERIFICA SE O USUÁRIO AO MENOS POSSUI UMA SESSÃO ATIVA NO SISTEMA
+-- VERIFICA SE O USUÁRIO AO MENOS POSSUI UM COOKIE DE SESSÃO GRAVADO NO NAVEGADOR
 SELECT
 'redirect' AS component,
 '\c\login\' AS link
@@ -26,6 +26,12 @@ SET maxima_permissao_usuario = (
     INNER JOIN funcao_permissoes fp ON (fp.id_funcao = u.id_funcao)
     WHERE u.id_usuario = $id_usuario::INTEGER
 );
+
+-- VERIFICA SE O USUÁRIO POSSUI UMA SESSÃO ATIVA, E CASO NÃO TENHA, REDIRECIONA O USUÁRIO PARA A ROTA \LOGIN
+SELECT
+'redirect' AS component,
+'\c\login\' AS link
+WHERE $id_usuario IS NULL;
 
 /*
     VERIFICA SE O USUÁRIO POSSUI PERMISSÃO PARA ACESSAR A ROTA SOLICITADA,

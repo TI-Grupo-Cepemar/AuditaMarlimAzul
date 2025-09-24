@@ -14,3 +14,7 @@
     background: #11182700; /* CÓDIGO DE COR INVISÍVIL, COM FINAL 00 */
     border: 0;
 }
+
+.alert {
+    z-index: 1000 !important;
+}
