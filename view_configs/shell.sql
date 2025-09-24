@@ -61,5 +61,5 @@ $titulo AS title,
 $mensagem AS description,
 TRUE AS dismissible,
 TRUE AS important,
-'position-absolute end-0 bottom-0 me-5' AS class
+'position-fixed end-0 bottom-0 me-5' AS class
 WHERE $renderiza_alerta IS NOT NULL;
