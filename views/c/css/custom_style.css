@@ -11,10 +11,18 @@
 }
 
 .form-fieldset {
-    background: #11182700; /* CÓDIGO DE COR INVISÍVIL, COM FINAL 00 */
-    border: 0;
+    background: #11182700 !important; /* CÓDIGO DE COR INVISÍVIL, COM FINAL 00 */
+    border: 0 !important;
 }
 
 .alert {
     z-index: 1000 !important;
+}
+
+.table-responsive {
+    max-height: 60vh !important;
+}
+
+* {
+    scrollbar-color: color-mix(in srgb,var(--tblr-scrollbar-color,var(--tblr-body-color)) 20%,transparent) transparent !important;
 }

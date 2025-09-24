@@ -1,6 +1,9 @@
 
 /*
     COMPONENTE RESPONSÁVEL POR CONTER OS CAMPOS UTILIZADOS NO FORMULÁRIO DE EDIÇÃO DO GERENTE
+
+    1. REQUERIMENTOS:
+        1.1. id_gerente
 */
 
 -- VERIFICA SE O USUÁRIO POSSUI PERMISSÃO PARA ACESSAR A ROTA
@@ -28,10 +31,16 @@ SET tipo_gerente = (
     LIMIT 1
 );
 
+-- VERIFICA SE O GERENTE SOLICITADO PARA EDIÇÃO É UM GERENTE VÁLIDO CADASTRADO NO BANCO DE DADOS, CASO NÃO SEJA, REDIRECIONA O REQUISITANTE PARA A ROTA \LOGIN
+SELECT
+'redirect' AS component,
+'\c\login\' AS link
+WHERE $nome_gerente IS NULL;
+
 -- RENDERIZA OS COMPONENTES VISUAIS DA ROTA
 SELECT
 'form' AS component,
-'\entidades\gerentes\crud_handles\edit' AS action,
+'\entidades\gerentes\crud_handles\edit?id_gerente='||$id_gerente AS action,
 '' AS validate;
 SELECT
 'text' AS type,
