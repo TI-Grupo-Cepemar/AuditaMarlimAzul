@@ -21,7 +21,7 @@ SET id_usuario = (
     WHERE s.codigo_sessao = sqlpage.cookie('CODIGO_SESSAO')
 );
 SET maxima_permissao_usuario = (
-    SELECT MIN(fp.id_permissoes) AS "permissao_maxima"
+    SELECT MAX(fp.id_permissoes) AS "permissao_maxima"
     FROM usuarios u
     INNER JOIN funcao_permissoes fp ON (fp.id_funcao = u.id_funcao)
     WHERE u.id_usuario = $id_usuario::INTEGER

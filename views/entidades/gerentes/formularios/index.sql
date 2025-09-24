@@ -8,9 +8,10 @@ SELECT
 'dynamic' AS component,
 sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','2')) AS properties;
 
+-- RENDERIZA OS COMPONENTES VISUAIS DA ROTA
 SELECT
 'form' AS component,
-'' AS action,
+'\entidades\gerentes\crud_handles\create' AS action,
 '' AS validate;
 SELECT
 'text' AS type,
@@ -22,10 +23,11 @@ SELECT
 'select' AS type,
 'Tipo' AS label,
 'tipo' AS name,
-TRUE AS required;
+TRUE AS required,
+json_object('label':'Local',     'value':'local') AS options,
+json_object('label':'Regional',  'value':'regional') AS options;
 
-/*
-id_gestor, 
-nome, 
-e_gerente_regional
-*/
+SELECT
+'submit' AS type,
+'Salvar' AS value,
+'mt-3 bg-primary text-white fw-bold' AS class;

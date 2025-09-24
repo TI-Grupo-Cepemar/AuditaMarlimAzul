@@ -41,3 +41,9 @@ SELECT
 'Não há cadastros' AS empty_description,
 TRUE AS sort,
 TRUE AS search;
+-- QUERY QUE PREENCHE A TABELA COM OS GERENTES ARMAZENADOS NO BANCO DE DADOS
+SELECT 
+ROW_NUMBER() OVER (ORDER BY g.nome) AS "ID",
+g.nome AS "Nome", 
+CASE WHEN g.e_gerente_regional THEN 'Regional' ELSE 'Local' END AS "Tipo"
+FROM gestores g;
