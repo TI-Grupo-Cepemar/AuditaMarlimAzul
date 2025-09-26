@@ -26,3 +26,7 @@
 * {
     scrollbar-color: color-mix(in srgb,var(--tblr-scrollbar-color,var(--tblr-body-color)) 20%,transparent) transparent !important;
 }
+
+.dropdown, .dropdown-center, .dropend, .dropstart, .dropup, .dropup-center {
+    position: static;
+}

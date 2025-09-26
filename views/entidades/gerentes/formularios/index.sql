@@ -28,6 +28,13 @@ json_object('label':'Local',     'value':'local') AS options,
 json_object('label':'Regional',  'value':'regional') AS options;
 
 SELECT
+'text' AS type,
+'E-mail' AS label,
+'email' AS name,
+'^.+@.+(.com(.br)?)$' AS pattern,
+TRUE AS required;
+
+SELECT
 'submit' AS type,
 'Salvar' AS value,
 'mt-3 bg-primary text-white fw-bold' AS class;

@@ -10,8 +10,8 @@ SET tema = (
 SET nome_usuario = (
     SELECT u.nome
     FROM sessoes s
-    INNER JOIN usuarios u ON (s.id_usuario = u.id_usuario)
-    WHERE s.codigo_sessao = sqlpage.cookie('CODIGO_SESSAO')
+    INNER JOIN usuarios u ON (s.id_usuario = u.id)
+    WHERE s.codigo = sqlpage.cookie('CODIGO_SESSAO')
     LIMIT 1
 );
 SET json_informacoes_usuario = (

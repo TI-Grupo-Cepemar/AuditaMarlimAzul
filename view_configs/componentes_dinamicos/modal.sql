@@ -6,7 +6,7 @@
 -- CASO O USUÁRIO NÃO POSSUA PERMISSÃO PARA ACESSAR A ROTA, REDIRECIONA PARA A ROTA \LOGIN
 SELECT
 'dynamic' AS component,
-sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','0')) AS properties;
+sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','17')) AS properties; -- Permissão 17) Visualizar auditorias
 
 -- DEFINE AS VARIÁVEIS NECESSÁRIAS PARA A EXECUÇÃO DA ROTA
 SET parametros_informados = (

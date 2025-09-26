@@ -17,7 +17,7 @@ SET senha_usuario_requisitante = (
     WHERE usuario = :usuario
 );
 SET id_usuario_requisitante = (
-    SELECT id_usuario
+    SELECT id
     FROM usuarios
     WHERE usuario = :usuario
 );
@@ -49,7 +49,7 @@ $senha_usuario_requisitante AS password_hash;
 DELETE FROM sessoes
 WHERE id_usuario = $id_usuario_requisitante::INTEGER;
 
-INSERT INTO sessoes (id_usuario, codigo_sessao)
+INSERT INTO sessoes (id_usuario, codigo)
 VALUES($id_usuario_requisitante::INTEGER, $codigo_sessao_criada);
 
 SELECT

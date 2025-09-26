@@ -9,7 +9,7 @@
 -- VERIFICA SE O USUÁRIO POSSUI PERMISSÃO PARA ACESSAR A ROTA
 SELECT
 'dynamic' AS component,
-sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','2')) AS properties;
+sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','11')) AS properties; -- Permissão 11) Editar gestores
 
 -- VERIFICA SE O USUÁRIO INFORMOU OS DADOS NECESSÁRIO PARA ENCONTRAR O GESTOR NO BANCO DE DADOS, CASO O REQUISITANTE NÃO TENHA INFORMADO, REDIRECIONA PARA A ROTA \LOGIN
 SELECT
@@ -20,14 +20,20 @@ WHERE $id_gerente IS NULL;
 -- DEFINE AS VARIÁVEIS NECESSÁRIAS PARA EXECUTAR A ROTA
 SET nome_gerente = (
     SELECT nome
-    FROM gestores
-    WHERE id_gestor = $id_gerente::INTEGER
+    FROM gerentes
+    WHERE id = $id_gerente::INTEGER
     LIMIT 1
 );
 SET tipo_gerente = (
-    SELECT CASE WHEN e_gerente_regional THEN 'regional' ELSE 'local' END
-    FROM gestores
-    WHERE id_gestor = $id_gerente::INTEGER
+    SELECT CASE WHEN regional THEN 'regional' ELSE 'local' END
+    FROM gerentes
+    WHERE id = $id_gerente::INTEGER
+    LIMIT 1
+);
+SET email = (
+    SELECT email
+    FROM gerentes
+    WHERE id = $id_gerente::INTEGER
     LIMIT 1
 );
 
@@ -57,6 +63,14 @@ TRUE AS required,
 json_object('label':'Local',     'value':'local') AS options,
 json_object('label':'Regional',  'value':'regional') AS options,
 $tipo_gerente AS value;
+
+SELECT
+'text' AS type,
+'E-mail' AS label,
+'email' AS name,
+TRUE AS required,
+'^.+@.+(.com(.br)?)$' AS pattern,
+$email AS value;
 
 SELECT
 'submit' AS type,

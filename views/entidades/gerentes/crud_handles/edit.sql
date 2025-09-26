@@ -1,32 +1,33 @@
 
 /*
-    COMPONENTE RESPONSÁVEL PELA EDIÇÃO DE GESTORES
+    COMPONENTE RESPONSÁVEL PELA EDIÇÃO DE gerentes
 
     REQUERIMENTOS:
         1. O requerente deve informar os atributos:
             1.1. id_gerente (GET)
             1.2. nome (POST)
             1.3. tipo (POST)
+            1.4. email (POST)
 */
 
 -- VERIFICA SE O REQUERENTE POSSUI PERMISSÃO PARA ACESSAR A ROTA, CASO NÃO TENHA, REDIRECIONA PARA A ROTA \LOGIN
 SELECT
 'dynamic' AS component,
-sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','3')) AS properties;
+sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','11')) AS properties; -- Permissão 11) Editar gestores
 
 -- DEFINE AS VARIÁVEIS UTILIZADAS NA ROTA
 SET argumentos_corretos = (
-    CASE WHEN ($id_gerente IS NOT NULL AND :nome IS NOT NULL AND :tipo IS NOT NULL) THEN 'true' ELSE NULL END
+    CASE WHEN ($id_gerente IS NOT NULL AND :nome IS NOT NULL AND :tipo IS NOT NULL AND :email IS NOT NULL) AND (:tipo = 'regional' OR :tipo = 'local') AND (:email ~ '^.+@.+(.com(.br)?)$') THEN 'true' ELSE NULL END
 );
 SET gestor_encontrado = (
-    SELECT id_gestor
-    FROM gestores
-    WHERE id_gestor = $id_gerente::INTEGER
+    SELECT id
+    FROM gerentes
+    WHERE id = $id_gerente::INTEGER
     LIMIT 1
 );
 SET id_gestor_com_o_nome_informado = (
-    SELECT id_gestor
-    FROM gestores
+    SELECT id
+    FROM gerentes
     WHERE nome = :nome
     LIMIT 1
 );
@@ -62,9 +63,9 @@ SELECT
 WHERE $id_gestor_com_o_nome_informado IS NOT NULL AND ($id_gestor_com_o_nome_informado::INTEGER != $id_gerente::INTEGER)
 
 -- REALIZA A ALTERAÇÃO DO GESTOR NO BANCO DE DADOS
-UPDATE gestores
-SET nome = :nome, e_gerente_regional = (:tipo = 'regional')
-WHERE id_gestor = $id_gerente::INTEGER
+UPDATE gerentes
+SET nome = :nome, regional = (:tipo = 'regional'), email = :email
+WHERE id = $id_gerente::INTEGER
 RETURNING
 'redirect' AS component,
 '\entidades\gerentes\'||$mensagem_gestor_alterado_com_sucesso AS link;

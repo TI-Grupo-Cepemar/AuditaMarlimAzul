@@ -14,17 +14,24 @@ SELECT
 '\c\login\' AS link
 WHERE sqlpage.cookie('CODIGO_SESSAO') IS NULL;
 
+-- VERIFICA SE O REQUISITANTE INFORMOU A FUNÇÃO NECESSÁRIA PARA ACESSAR A ROTA, E CASO NÃO TENHA INFORMADO, REDIRECINA O USUÁRIO PARA A ROTA \LOGIN\
+SELECT
+'redirect' AS component,
+'\c\login\' AS link
+WHERE ($funcao IS NULL OR $funcao !~ '^[1-9][0-9]*$'); -- A ÚLTIMA VERIFICAÇÃO VERIFICA SE O ATRIBUTO "funcao" É UM NÚMERO
+
 -- DEFINE AS VARIÁVEIS NECESSÁRIAS NA ROTA
 SET id_usuario = (
     SELECT id_usuario 
     FROM sessoes s 
-    WHERE s.codigo_sessao = sqlpage.cookie('CODIGO_SESSAO')
+    WHERE s.codigo = sqlpage.cookie('CODIGO_SESSAO')
 );
-SET maxima_permissao_usuario = (
-    SELECT MAX(fp.id_permissoes) AS "permissao_maxima"
+SET usuario_possui_permissao = (
+    SELECT fp.id
     FROM usuarios u
-    INNER JOIN funcao_permissoes fp ON (fp.id_funcao = u.id_funcao)
-    WHERE u.id_usuario = $id_usuario::INTEGER
+    INNER JOIN funcoes_permissoes fp ON (fp.id_funcao = u.id_funcao)
+    WHERE (u.id = $id_usuario::INTEGER AND fp.id_permissao = $funcao::INTEGER)
+    LIMIT 1
 );
 
 -- VERIFICA SE O USUÁRIO POSSUI UMA SESSÃO ATIVA, E CASO NÃO TENHA, REDIRECIONA O USUÁRIO PARA A ROTA \LOGIN
@@ -39,7 +46,8 @@ WHERE $id_usuario IS NULL;
     DIRECIONA O USUÁRIO PARA O /LOGIN, PARA PROSSEGUIR O USUÁRIO PRECISA 
     TER UMA PERMISSÃO DE ID MAIOR QUE O ID MÍNIMO DA ROTA
 */
+
 SELECT
 'redirect' AS component,
 '\c\login\' AS link
-WHERE $funcao IS NULL OR ($funcao::INTEGER > $maxima_permissao_usuario::INTEGER);
+WHERE $usuario_possui_permissao IS NULL;

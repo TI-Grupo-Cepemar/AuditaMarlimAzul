@@ -12,7 +12,7 @@ WHERE sqlpage.cookie('TEMA') IS NULL;
 SET id_usuario_recuperado_pela_sessao = ( -- id do usuário recuperado através do cookie de sessão armazenado no navegador
     SELECT s.id_usuario
     FROM sessoes s
-    WHERE s.codigo_sessao = sqlpage.cookie('CODIGO_SESSAO')
+    WHERE s.codigo = sqlpage.cookie('CODIGO_SESSAO')
 );
 SET tema = (
     sqlpage.cookie('TEMA')

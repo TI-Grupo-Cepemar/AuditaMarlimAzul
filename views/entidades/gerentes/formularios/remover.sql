@@ -9,7 +9,7 @@
 -- VERIFICA SE O USUÁRIO POSSUI PERMISSÃO PARA ACESSAR A ROTA
 SELECT
 'dynamic' AS component,
-sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','3')) AS properties;
+sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','12')) AS properties; -- Permissão 12) Remover gestores
 
 -- DEFINE AS VARIÁVEIS NECESSÁRIAS PARA A EXECUÇÃO DA ROTA
 SET mensagem_argumentos_incorretos = (
@@ -19,15 +19,15 @@ SET mensagem_gerente_nao_encontrado_no_banco_de_dados = (
     '?tipo=erro&titulo=Erro durante a remoção&mensagem=Gerente não encontrado na base de dados'
 );
 SET id_gerente_encontrado_no_banco_de_dados = (
-    SELECT id_gestor
-    FROM gestores
-    WHERE id_gestor = $id_gerente::INTEGER
+    SELECT id
+    FROM gerentes
+    WHERE id = $id_gerente::INTEGER
     LIMIT 1
 );
 SET nome_gerente = (
     SELECT nome
-    FROM gestores
-    WHERE id_gestor = $id_gerente::INTEGER
+    FROM gerentes
+    WHERE id = $id_gerente::INTEGER
     LIMIT 1
 );
 SET parametros_get_remover_gestor = (

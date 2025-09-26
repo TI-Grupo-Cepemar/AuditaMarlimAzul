@@ -1,5 +1,5 @@
 /*
-    COMPONENTE RESPONSÁVEL PELA REMOÇÃO DE GESTORES
+    COMPONENTE RESPONSÁVEL PELA REMOÇÃO DE GERENTES
 
     1. REQUERIMENTOS:
         1.1. id_gerente
@@ -21,9 +21,9 @@ SET mensagem_gestor_removido_com_sucesso = (
     '?tipo=sucesso&titulo=Remoção realizada com sucesso&mensagem=Gestor removido com sucesso'
 );
 SET id_gerente_validado_no_banco_de_dados = (
-    SELECT id_gestor
-    FROM gestores
-    WHERE id_gestor = $id_gerente::INTEGER
+    SELECT id
+    FROM gerentes
+    WHERE id = $id_gerente::INTEGER
     LIMIT 1
 );
 
@@ -39,8 +39,8 @@ SELECT
 '\entidades\gerentes\'||$mensagem_gestor_nao_encontrado AS link
 WHERE $id_gerente_validado_no_banco_de_dados IS NULL;
 
-DELETE FROM gestores
-WHERE id_gestor = $id_gerente::INTEGER
+DELETE FROM gerentes
+WHERE id = $id_gerente::INTEGER
 RETURNING
 'redirect' AS component,
 '\entidades\gerentes\'||$mensagem_gestor_removido_com_sucesso AS link;
