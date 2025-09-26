@@ -1,3 +1,4 @@
+
 :root, [data-bs-theme=light] {
     --tblr-primary: #4299e1 !important;
 }
@@ -7,7 +8,7 @@
 }
 
 .modal-backdrop {
-    opacity:0.5 !important;
+    opacity: 0.5 !important;
 }
 
 .form-fieldset {

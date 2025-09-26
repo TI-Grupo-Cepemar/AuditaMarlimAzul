@@ -28,7 +28,8 @@ SET json_entidades = (
         "title": "Entidades",
         "icon": "list-details",
         "submenu": [
-            {"title": "Gerentes", "icon": "users", "link": "\\entidades\\gerentes\\"}
+            {"title": "Gerentes", "icon": "users", "link": "\\entidades\\gerentes\\"},
+            {"title": "Bases", "icon": "building-airport", "link": "\\entidades\\bases\\"}
         ]
     }'
 );

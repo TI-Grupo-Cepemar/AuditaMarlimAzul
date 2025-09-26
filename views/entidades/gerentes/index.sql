@@ -6,7 +6,7 @@
 -- VERIFICA SE O USUÁRIO POSSUI PERMISSÕES SUFICIENTES PARA ACESSAR A ROTA
 SELECT
 'dynamic' AS component,
-sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','9')) AS properties; -- LEMBRANDO QUE O PARÂMETRO PASSADO SE TRATA DA PERMISSÃO MÍNIMA NECESSÁRIA PARA ACESSAR A ROTA
+sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','9')) AS properties; -- Permissão 9) Visualizar gestores
 
 -- RENDERIZA O SHELL OU LAYOUT GENÉRICO DA ROTA
 SELECT
