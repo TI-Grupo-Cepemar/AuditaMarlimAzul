@@ -1,0 +1,123 @@
+<link rel="stylesheet" href="https://unpkg.com/js-year-calendar@latest/dist/js-year-calendar.min.css" />
+
+{{#if escuro}}
+<style>
+  .calendar .calendar-header {
+    border: 1px solid #374151;
+  }
+  .calendar .calendar-header table th:hover {
+    background: #374151;
+  }
+  .calendar-context-menu .item .content:hover {
+    background: #374151;
+  }
+  .calendar-context-menu, .calendar-context-menu .submenu {
+    border: 1px solid #374151;
+    background-color: #111827;
+  }
+</style>
+{{/if}}
+
+<div id="calendar"></div>
+<button type="button" id="btn-{{modalCadastro}}" class="d-none" data-bs-toggle="modal" data-bs-target="#{{modalCadastro}}"></button>
+
+<a id="visualizarTopicos" class="d-none"></a>
+<a id="editarTopicos" class="d-none"></a>
+<a id="removerTopicos" class="d-none"></a>
+
+<script nonce="{{@csp_nonce}}" src="https://unpkg.com/js-year-calendar@latest/dist/js-year-calendar.js"></script>
+<script nonce="{{@csp_nonce}}" src="https://unpkg.com/js-year-calendar@latest/locales/js-year-calendar.pt.js"></script>
+<script nonce="{{@csp_nonce}}" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script nonce="{{@csp_nonce}}" src="https://unpkg.com/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+<script id="rendered-js" nonce="{{@csp_nonce}}">
+
+  Date.prototype.addDays = function (days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+  }
+
+  function visualizarTopicos(event) {
+    const element = document.getElementById("visualizarTopicos");
+    element.setAttribute("href", "/topicos/visualizar"+"?id_registro="+event.id);
+    element.click();
+  }
+
+  function editar(event) {
+    const element = document.getElementById("editarTopicos");
+    element.setAttribute("href","?calendario&editar&id_registro="+event.id);
+    element.click();
+  }
+
+  function remover(event) {
+    const element = document.getElementById("removerTopicos");
+    element.setAttribute("href","?calendario&confirmacaoRemocao&link_nao=?calendario&link_sim=auditorias_remover?id_registro="+event.id);
+    element.click();
+  }
+
+  calendar = new Calendar("#calendar", {
+    clickDay: function (e) {
+      console.log("Dia clicado");
+      if ({{botoesEditar}}) {
+        document.getElementById("btn-{{modalCadastro}}").click();
+        document.getElementById('data_inicial').setAttribute('value', e.date.toLocaleDateString('en-CA'));
+        document.getElementById('data_final').setAttribute('value', e.date.toLocaleDateString('en-CA'));
+      }
+    },
+    mouseOnDay: function(e) {
+      if(e.events.length > 0) {
+        var content = '';
+        for(var i in e.events) {
+            content += '<div class="event-tooltip-content">';
+            //content += '<div class="event-name" style="color:' + e.events[i].color + '">' + e.events[i].name + '</div>';
+            content += '<div class="event-name">' + e.events[i].name + '</div>';
+            content += '</div>';
+        }
+        $(e.element).popover({ 
+            trigger: 'manual',
+            container: 'body',
+            html:true,
+            content: content
+        });
+        $(e.element).popover('show');
+      }
+    },
+    mouseOutDay: function(e) {
+      if(e.events.length > 0) {
+          $(e.element).popover('hide');
+      }
+    },
+    selectRange: function (e) {
+      console.log("Range selecionado");
+      document.getElementById("btn-{{modalCadastro}}").click();
+      document.getElementById('data_inicial').setAttribute('value', e.startDate.toLocaleDateString('en-CA'));
+      document.getElementById('data_final').setAttribute('value', e.endDate.toLocaleDateString('en-CA'));
+    },
+    dayContextMenu: function (e) {
+      $(e.element).popover('hide');
+    },
+    dataSource: [
+      {{ #each_row }}
+        {
+          id: "{{id}}",
+          name: "{{nome}}",
+          startDate: new Date("{{data_inicial}}").addDays(1),
+          endDate: new Date("{{data_final}}").addDays(1)
+        }{{ #unless @last }}, {{/ unless}}
+      {{/ each_row}}
+    ],
+    language: "pt",
+    enableContextMenu: true,
+    enableRangeSelection: {{botoesEditar}},
+    style: "border",
+    contextMenuItems: [
+      { text: 'Visualizar Tópicos', click: visualizarTopicos },
+      {{#if botoesEditar}}
+      { text: 'Editar', click: editar },
+      {{/if}}
+      {{#if botoesEditar}}
+      { text: 'Remover', click: remover },
+      {{/if}}
+    ]
+  });
+</script>

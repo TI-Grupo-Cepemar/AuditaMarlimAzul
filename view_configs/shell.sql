@@ -28,8 +28,19 @@ SET json_entidades = (
         "title": "Entidades",
         "icon": "list-details",
         "submenu": [
-            {"title": "Gerentes", "icon": "users", "link": "\\entidades\\gerentes\\"},
-            {"title": "Bases", "icon": "building-airport", "link": "\\entidades\\bases\\"}
+            {"title": "Auditorias", "icon": "id-badge-2", "link": "\\entidades\\auditorias\\"},
+            {"title": "Bases", "icon": "building-airport", "link": "\\entidades\\bases\\"},
+            {"title": "Gerentes", "icon": "users", "link": "\\entidades\\gerentes\\"}
+        ]
+    }'
+);
+SET json_auditorias = ( -- Lembrar de futuramente inserir o link do calendário no submenu correto
+    '{
+        "title": "Auditorias",
+        "icon": "id-badge-2",
+        "submenu": [
+            {"title": "Calendário", "icon": "calendar", "link": "\\entidades\\auditorias\\calendario"},
+            {"title": "Tabela", "icon": "table", "link": "\\entidades\\auditorias\\"}
         ]
     }'
 );
@@ -52,6 +63,7 @@ $tema AS theme,
 '\c\js\jquery.min.js' AS javascript,
 '\c\imagens\logo_marlim.png' AS image,
 '\c\imagens\logo_marlim_favicon.png' AS favicon,
+JSON($json_auditorias) AS menu_item,
 JSON($json_entidades) AS menu_item,
 JSON($json_informacoes_usuario) AS menu_item;
 

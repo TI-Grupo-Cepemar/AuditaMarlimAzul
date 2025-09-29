@@ -28,8 +28,8 @@
     scrollbar-color: color-mix(in srgb,var(--tblr-scrollbar-color,var(--tblr-body-color)) 20%,transparent) transparent !important;
 }
 
-.dropdown, .dropdown-center, .dropend, .dropstart, .dropup, .dropup-center {
-    position: static;
+table .dropdown {
+    position: static !important;
 }
 
 .modal-content {
@@ -38,4 +38,25 @@
 
 .modal-footer {
     background-color: var(--tblr-bg-forms);
+}
+
+.calendar .calendar-header table th:hover {
+    background: var(--tblr-border-color-translucent) !important;
+}
+
+.calendar .calendar-header .year-neighbor2 {
+    opacity: 1 !important;
+}
+
+.calendar .calendar-header {
+    border-color: var(--tblr-border-color) !important;
+}
+
+.calendar-context-menu, .calendar-context-menu .submenu {
+    border-color: var(--tblr-border-color) !important;
+    background-color: var(--tblr-text-inverted) !important;
+}
+
+.content:hover {
+    background-color: var(--tblr-tertiary-bg) !important;
 }
