@@ -1,5 +1,5 @@
 {
-  "database_url": "postgres://postgres:123456@localhost:5432/AuditaMarlimAzul",
+  "database_url": "postgres://postgres:123456@10.1.1.117:5432/AuditaMarlimAzul",
   "web_root": "views",
   "markdown_allow_dangerous_html": true,
   "markdown_allow_dangerous_protocol": true,

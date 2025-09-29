@@ -31,3 +31,11 @@
 .dropdown, .dropdown-center, .dropend, .dropstart, .dropup, .dropup-center {
     position: static;
 }
+
+.modal-content {
+    background-color: var(--tblr-bg-forms);
+}
+
+.modal-footer {
+    background-color: var(--tblr-bg-forms);
+}
