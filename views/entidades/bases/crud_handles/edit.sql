@@ -13,7 +13,7 @@
 -- VERIFICA SE O REQUERENTE POSSUI PERMISSÃO PARA ACESSAR A ROTA, CASO NÃO TENHA, REDIRECIONA PARA A ROTA \LOGIN
 SELECT
 'dynamic' AS component,
-sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','11')) AS properties; -- Permissão 11) Editar gestores
+sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','10')) AS properties; -- Permissão 10) Editar gestores
 
 -- DEFINE AS VARIÁVEIS UTILIZADAS NA ROTA
 SET argumentos_corretos = (

@@ -33,6 +33,9 @@ SET usuario_possui_permissao = (
     WHERE (u.id = $id_usuario::INTEGER AND fp.id_permissao = $funcao::INTEGER)
     LIMIT 1
 );
+SET alerta = (
+    '?tipo=erro&titulo=Operação não permitida&mensagem=O usuário não possui permissão para realizar essa ação, entre em contato com o administrador do sistema solicitando que a permissão seja concedida.'
+);
 
 -- VERIFICA SE O USUÁRIO POSSUI UMA SESSÃO ATIVA, E CASO NÃO TENHA, REDIRECIONA O USUÁRIO PARA A ROTA \LOGIN
 SELECT
@@ -49,5 +52,5 @@ WHERE $id_usuario IS NULL;
 
 SELECT
 'redirect' AS component,
-'\c\login\' AS link
+'\'||$alerta AS link
 WHERE $usuario_possui_permissao IS NULL;

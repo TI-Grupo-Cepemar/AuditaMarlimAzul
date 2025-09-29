@@ -6,7 +6,7 @@
 -- VERIFICA SE O REQUISITANTE POSSUI PERMISSÃO PARA ACESSAR ESSA ROTA, CASO NÃO TENHA, REDIRECIONA O REQUISITANTE PARA A ROTA \LOGIN\
 SELECT
 'dynamic' AS component,
-sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','10')) AS properties; -- Permissão 10) Cadastrar gerente
+sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','9')) AS properties; -- Permissão 9) Cadastrar gerente
 
 -- DEFINE AS VARIÁVEIS UTILIZADAS PELA ROTA
 SET variaveis_informadas_corretamente = (

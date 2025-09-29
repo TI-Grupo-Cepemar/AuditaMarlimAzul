@@ -6,7 +6,7 @@
 -- VERIFICA SE O USUÁRIO POSSUI PERMISSÕES SUFICIENTES PARA ACESSAR A ROTA
 SELECT
 'dynamic' AS component,
-sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','9')) AS properties; -- Permissão 9) Visualizar gestores
+sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','8')) AS properties; -- Permissão 9) Visualizar gestores
 
 -- RENDERIZA O SHELL OU LAYOUT GENÉRICO DA ROTA
 SELECT
@@ -57,6 +57,7 @@ SELECT
 ROW_NUMBER() OVER (ORDER BY g.id) AS "ID",
 g.nome AS "Nome", 
 CASE WHEN g.regional THEN 'Regional' ELSE 'Local' END AS "Tipo",
+g.email AS "E-mail",
 '<div class="dropdown">
   <a href="#" class="btn dropdown-toggle" data-bs-toggle="dropdown"><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-dots"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg></a>
   <div class="dropdown-menu">

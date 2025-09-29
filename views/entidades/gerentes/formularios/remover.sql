@@ -9,7 +9,7 @@
 -- VERIFICA SE O USUÁRIO POSSUI PERMISSÃO PARA ACESSAR A ROTA
 SELECT
 'dynamic' AS component,
-sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','12')) AS properties; -- Permissão 12) Remover gestores
+sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','8')) AS properties; -- Permissão 8) Visualizar gestores
 
 -- DEFINE AS VARIÁVEIS NECESSÁRIAS PARA A EXECUÇÃO DA ROTA
 SET mensagem_argumentos_incorretos = (
