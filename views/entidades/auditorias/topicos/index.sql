@@ -1,6 +1,12 @@
 
 /*
     ROTA RESPONSÁVEL PELO CRUD DE BASES
+
+    REQUERIMENTOS:
+      1. O requisitante deve ter a permissão "21) Visualizar tópicos"
+      2. O requisitante deve informar os seguintes atributos
+        2.1. auditoria (representa o id da auditoria a qual se deseja visualizar os tópicos)
+
 */
 
 -- VERIFICA SE O USUÁRIO POSSUI PERMISSÕES SUFICIENTES PARA ACESSAR A ROTA
@@ -8,22 +14,105 @@ SELECT
 'dynamic' AS component,
 sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','21')) AS properties; -- Permissão 21) Visualizar tópicos
 
+-- VERIFICA SE O USUÁRIO INFORMOU OS ATRIBUTOS NECESSÁRIOS PARA EXECUTAR A ROTA
+SELECT
+'rediret' AS component,
+'\c\login\' AS link
+WHERE $auditoria IS NULL;
+
+-- DEFINE AS VARIÁVEIS UTILIZADAS PELA ROTA
+SET id_auditoria_validada = (
+  SELECT id
+  FROM auditorias a
+  WHERE a.id = $auditoria::INTEGER
+  LIMIT 1
+);
+SET sigla_base_auditoria = (
+  SELECT 
+  b.sigla AS "Sigla"
+  FROM auditorias a
+  INNER JOIN bases b ON (b.id = a.id_base)
+  WHERE a.id = $auditoria::INTEGER
+  LIMIT 1
+);
+SET data_inicial_auditoria = (
+  SELECT 
+  TO_CHAR(data_inicial,'dd/MM/yyyy') AS "Data Inicial"
+  FROM auditorias a
+  WHERE a.id = $auditoria::INTEGER
+  LIMIT 1
+);
+SET data_final_auditoria = (
+  SELECT 
+  TO_CHAR(data_final,'dd/MM/yyyy') AS "Data Final"
+  FROM auditorias a
+  WHERE a.id = $auditoria::INTEGER
+  LIMIT 1
+);
+SET evento_auditoria = (
+  SELECT 
+  CASE WHEN pre_auditoria THEN 'Pré-auditoria' ELSE 'Auditoria' END AS "Evento"
+  FROM auditorias a
+  WHERE a.id = $auditoria::INTEGER
+  LIMIT 1
+);
+
+-- VERIFICA SE A AUDITORIA INFORMADA REALMENTE EXISTE NA BASE DE DADOS, E CASO NÃO EXISTA, REDIRECIONA O USUÁRIO PARA A ROTA \C\LOGIN\
+SELECT
+'redirect' AS component,
+'\c\login\' AS link
+WHERE $id_auditoria_validada IS NULL;
+
 -- RENDERIZA O SHELL OU LAYOUT GENÉRICO DA ROTA
 SELECT
 'dynamic' AS component,
 sqlpage.run_sql('..\view_configs\shell.sql') AS properties;
 
 -- RENDERIZA OS COMPONENTES VISUAIS DA ROTA
-SELECT
+SELECT -- TÍTULO DA PÁGINA
 'title' AS component,
 'Auditoria' AS contents,
 1 AS level,
 TRUE AS center;
 
+SELECT -- FORMULÁRIO CONTENDO INFORMAÇÕES DA AUDITORIA
+'form' AS component,
+'' AS validate;
+SELECT -- CAMPO ID
+'ID' AS label,
+$id_auditoria_validada AS value,
+3 AS width,
+TRUE AS disabled;
+SELECT -- CAMPO BASE
+'Base' AS label,
+$sigla_base_auditoria AS value,
+3 AS width,
+TRUE AS disabled;
+SELECT -- CAMPO EVENTO
+'Evento' AS label,
+$evento_auditoria AS value,
+3 AS width,
+TRUE AS disabled;
+SELECT -- CAMPO ESTADO
+'Estado' AS label,
+'Aberto' AS value,
+3 AS width,
+TRUE AS disabled;
+SELECT -- CAMPO "DATA INICIAL"
+'Data Inicial' AS label,
+$data_inicial_auditoria AS value,
+6 AS width,
+TRUE AS disabled;
+SELECT -- CAMPO "DATA FINAL"
+'Data Final' AS label,
+$data_final_auditoria AS value,
+6 AS width,
+TRUE AS disabled;
+
 SELECT
 'tabs' AS component,
-json_object('titulo':'Tópicos','active':'true') AS abas,
-json_object('titulo':'Solicitações de documentação') AS abas;
+json_object('titulo':'Tópicos','active':'true','embed':'\entidades\auditorias\formularios\') AS abas,
+json_object('titulo':'Solicitações de documentação','embed':'\entidades\auditorias\formularios\') AS abas;
 
 /*
 SELECT -- POPUP QUE APARECERÁ QUANDO O REQUISITANTE CLICAR PARA CADASTRAR UMA NOVA BASE

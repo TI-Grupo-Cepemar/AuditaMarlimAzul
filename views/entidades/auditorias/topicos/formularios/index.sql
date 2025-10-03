@@ -11,7 +11,7 @@ sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','
 -- RENDERIZA OS COMPONENTES VISUAIS DA ROTA
 SELECT
 'form' AS component,
-'\entidades\bases\crud_handles\create' AS action,
+'\entidades\auditorias\topicos\crud_handles\create' AS action,
 '' AS validate;
 SELECT
 'text' AS type,

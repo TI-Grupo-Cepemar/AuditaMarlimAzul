@@ -1,6 +1,6 @@
 <style>
     .custom-tabs {
-        min-height: calc(100vh - 200px) !important;
+        min-height: calc(100vh - 400px) !important;
     }
 </style>
 <div class="card custom-tabs {{class}} my-3">
@@ -11,52 +11,22 @@
                     <a href="#{{titulo}}" class="nav-link {{#if active}}active{{/if}}" data-bs-toggle="tab">{{titulo}}</a>
                 </li>
             {{/each}}
-            {{!-- <li class="nav-item">
-                <a href="#tabs-home-ex1" class="nav-link active" data-bs-toggle="tab">Tópicos</a>
-            </li>
-            <li class="nav-item">
-                <a href="#tabs-profile-ex1" class="nav-link" data-bs-toggle="tab">Documentações solicitadas</a>
-            </li> --}}
         </ul>
     </div>
     <div class="card-body">
         <div class="tab-content">
-            
-            
-            
-            {{!-- <div class="tab-pane active show" id="tabs-home-ex1">
-                <h4>Home tab</h4>
-                <div>
-                    Cursus turpis vestibulum, dui in pharetra vulputate id sed non turpis ultricies fringilla
-                    at sed facilisis lacus pellentesque purus nibh
-                </div>
-            </div>
-            <div class="tab-pane" id="tabs-profile-ex1">
-                <h4>Profile tab</h4>
-                <div>
-                    Fringilla egestas nunc quis tellus diam rhoncus ultricies tristique enim at diam, sem nunc
-                    amet, pellentesque id egestas velit sed
-                </div>
-            </div> --}}
+            {{#each (parse_json abas)}}
+                <div id="{{titulo}}" class="card bg-transparent border-0 tab-pane{{#if active}} active show{{/if}}" data-pre-init="card" data-embed="{{embed}}">
+                    <div class="card-body p-0">
+                        <div class="card-content remove-bottom-margin"></div>
+                        <div class="d-flex justify-content-center h-100 align-items-center card-loading-placeholder">
+                            <div class="spinner-border" role="status" style="width: 3rem; height: 3rem;">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>    
+            {{/each}}
         </div>
     </div>
 </div>
-
-{{!-- 
-
-TITULO:
-
-1. Tópicos
-2. Solicitações de documentações
-
-DATA-EMBED: 
-
-1. {{link}}
-2. {{link}}
-
-ACTIVE:
-
-1. {{active}}
-2. {{active}}
-
---}}

@@ -56,7 +56,3 @@ table .dropdown {
     border-color: var(--tblr-border-color) !important;
     background-color: var(--tblr-text-inverted) !important;
 }
-
-.content:hover {
-    background-color: var(--tblr-tertiary-bg) !important;
-}
