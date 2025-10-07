@@ -20,3 +20,21 @@ INSERT INTO public.permissoes (nome,descricao_log) VALUES
 	 ('Cadastrar auditorias','Cadastrou auditoria'),
 	 ('Editar auditorias','Editou auditoria'),
 	 ('Remover auditorias','Removeu auditoria');
+INSERT INTO public.permissoes (nome,descricao_log) VALUES
+	 ('Visualizar tópicos','Visualizou tópicos'),
+	 ('Visualizar causas','Visualizou causas'),
+	 ('Cadastrar causas','Cadastrou causa'),
+	 ('Editar causas','Editou causa'),
+	 ('Remover causas','Removeu causa'),
+	 ('Cadastrar tópicos','Cadastrou tópico'),
+	 ('Editar tópicos','Editou tópico'),
+	 ('Remover tópicos','Removeu tópico'),
+	 ('Visualizar classificações','Visualizou classificação'),
+	 ('Cadastrar classificações','Cadastrou classificação');
+INSERT INTO public.permissoes (nome,descricao_log) VALUES
+	 ('Editar classificações','Editou classificação'),
+	 ('Remover classificações','Removeu classificação'),
+	 ('Visualizar status','Visualizou status'),
+	 ('Cadastrar status','Cadastrou status'),
+	 ('Editar status','Editou status'),
+	 ('Remover status','Removeu status');
