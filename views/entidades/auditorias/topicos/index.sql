@@ -73,6 +73,7 @@ SELECT -- TÍTULO DA PÁGINA
 'title' AS component,
 'Auditoria' AS contents,
 1 AS level,
+'my-0 py-0' AS class,
 TRUE AS center;
 
 SELECT -- FORMULÁRIO CONTENDO INFORMAÇÕES DA AUDITORIA
@@ -81,37 +82,37 @@ SELECT -- FORMULÁRIO CONTENDO INFORMAÇÕES DA AUDITORIA
 SELECT -- CAMPO ID
 'ID' AS label,
 $id_auditoria_validada AS value,
-3 AS width,
+2 AS width,
 TRUE AS disabled;
 SELECT -- CAMPO BASE
 'Base' AS label,
 $sigla_base_auditoria AS value,
-3 AS width,
+2 AS width,
 TRUE AS disabled;
 SELECT -- CAMPO EVENTO
 'Evento' AS label,
 $evento_auditoria AS value,
-3 AS width,
+2 AS width,
 TRUE AS disabled;
 SELECT -- CAMPO ESTADO
 'Estado' AS label,
 'Aberto' AS value,
-3 AS width,
+2 AS width,
 TRUE AS disabled;
 SELECT -- CAMPO "DATA INICIAL"
 'Data Inicial' AS label,
 $data_inicial_auditoria AS value,
-6 AS width,
+2 AS width,
 TRUE AS disabled;
 SELECT -- CAMPO "DATA FINAL"
 'Data Final' AS label,
 $data_final_auditoria AS value,
-6 AS width,
+2 AS width,
 TRUE AS disabled;
 
 SELECT
 'tabs' AS component,
-json_object('titulo':'Tópicos','active':'true','embed':'\entidades\auditorias\formularios\') AS abas,
+json_object('titulo':'Tópicos','active':'true','embed':'\entidades\auditorias\topicos\tabs_contents') AS abas,
 json_object('titulo':'Solicitações de documentação','embed':'\entidades\auditorias\formularios\') AS abas;
 
 /*
