@@ -56,3 +56,7 @@ table .dropdown {
     border-color: var(--tblr-border-color) !important;
     background-color: var(--tblr-text-inverted) !important;
 }
+
+.form-control[type=color] {
+    height: 45px;
+}

@@ -1,37 +1,30 @@
 
 /*
-    COMPONENTE RESPONSÁVEL POR CONTER OS CAMPOS UTILIZADOS NO FORMULÁRIO DO GERENTE
+    COMPONENTE RESPONSÁVEL POR CONTER OS CAMPOS UTILIZADOS NO FORMULÁRIO DE CADASTRO DE STATUS
 */
 
 -- VERIFICA SE O USUÁRIO POSSUI PERMISSÃO PARA ACESSAR A ROTA
 SELECT
 'dynamic' AS component,
-sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','8')) AS properties; -- Permissão 8) Visualizar gestores
+sqlpage.run_sql('..\view_configs\controle_de_acesso.sql', json_object('funcao','38')) AS properties; -- Permissão 38) Visualizar status
 
 -- RENDERIZA OS COMPONENTES VISUAIS DA ROTA
 SELECT
 'form' AS component,
-'\entidades\gerentes\crud_handles\create' AS action,
+'\entidades\status\crud_handles\create' AS action,
 '' AS validate;
 SELECT
 'text' AS type,
-'Nome' AS label,
-'nome' AS name,
-TRUE AS required;
-
-SELECT
-'select' AS type,
-'Tipo' AS label,
-'tipo' AS name,
+'Status' AS label,
+'status' AS name,
 TRUE AS required,
-json_object('label':'Local',     'value':'local') AS options,
-json_object('label':'Regional',  'value':'regional') AS options;
+9 AS width;
 
 SELECT
-'text' AS type,
-'E-mail' AS label,
-'email' AS name,
-'^.+@.+(.com(.br)?)$' AS pattern,
+'color' AS type,
+'Cor' AS label,
+'cor' AS name,
+3 AS width,
 TRUE AS required;
 
 SELECT
